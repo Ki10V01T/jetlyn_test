@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-TestappzooApplication<testappzoo>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.jetlyn.testappzoo.TestappzooApplication",
+            "projectName": "testappzoo",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
