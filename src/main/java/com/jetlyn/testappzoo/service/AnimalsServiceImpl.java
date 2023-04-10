@@ -1,14 +1,18 @@
 package com.jetlyn.testappzoo.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
 
 import com.jetlyn.testappzoo.entity.Animals;
 import com.jetlyn.testappzoo.repository.AnimalsRepository;
 
+@Service
 public class AnimalsServiceImpl implements AnimalsService {
     
     @Autowired
@@ -31,22 +35,23 @@ public class AnimalsServiceImpl implements AnimalsService {
     
     @Override
     public Animals read(UUID id) {
-        return animalsRepository.getById(id);
-    }
-
-    /*@Override
-    public boolean update(Users user, String name) {
-        if (usersRepository.exists(name)) {
-            user.setName(name);
-            usersRepository.save(user);
-            return true;
+        Animals a = null;
+        try {
+            a = animalsRepository.findById(id).get();
+        } catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        } catch (NoSuchElementException ex) {
+            ex.printStackTrace();
         }
-
-        return false;
-    }*/
+        
+        return a;
+    }
 
     @Override
     public Boolean delete(UUID id) {
+        if (id == null) {
+            return false;
+        }
         if (animalsRepository.existsById(id)) {
             animalsRepository.deleteById(id);
             return true;
@@ -55,8 +60,16 @@ public class AnimalsServiceImpl implements AnimalsService {
     }
 
     @Override
-    public Boolean deleteMulti(List<UUID> idList) {
-        animalsRepository.deleteAllById(idList);
+    public Boolean deleteMulti(List<Animals> animalsList) {
+        final List<UUID> idList = new ArrayList<>();
+        for(Animals animal : animalsList) {
+            idList.add(animal.getId());
+        }
+        try {
+            animalsRepository.deleteAllById(idList);
+        } catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        }
         return true;
     }
 
