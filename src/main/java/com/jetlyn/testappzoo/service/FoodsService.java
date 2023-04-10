@@ -18,17 +18,30 @@ public interface FoodsService {
     Boolean create(Foods food);
  
     /**
-     * Возвращает список всех имеющихся продуктов
-     * @return список животных
+     * Получает список всех имеющихся продуктов
+     * @return список продуктов
      */
     List<Foods> readAll();
 
-    //Foods updateFoodsLeftById(Foods food);
+    /**
+     * Меняет количество продукта по его id.
+     * @param id идентификатор продукта
+     * @param newLeft новый остаток продукта
+     * @return количество измененных строк
+     */
     Integer updateFoodsLeftById(UUID id, Integer newLeft);
+
+    /**
+     * Менеяет ежедневную норму для животного по его имени.
+     * @param animalname имя животного
+     * @param foodName название продукта
+     * @param newPerDay новая норма потребления для животного на день
+     * @return количество измененных строк
+     */
     Integer updateConsumeForSpecificAnimalPerDay(String animalname, String foodName, Double newPerDay);
  
     /**
-     * Возвращает продукт по его ID
+     * Получает продукт по его ID
      * @param id - ID животного
      * @return искомый продукт
      */
@@ -62,8 +75,22 @@ public interface FoodsService {
      */
     Boolean deleteAll();
 
+    /**
+     * Получает информацию о животных, с перечислением продуктов их питания.
+     * @return Список агрегированных таблиц
+     */
     List<AnimalsFoodsMenuAggregator> readExtendedAnimalMenu();
-    //Map<?, ?> readMenuForSpecificAnimalPerDay(String animalName);
+
+    /**
+     * Получает записи рациона питания для конкретного животного на неделю
+     * @param animalname имя конкретного животного
+     * @return Список агрегированных таблиц
+     */
     List<AnimalsFoodsMenuAggregator> readMenuforSpecificAnimalPerWeek(String animalname);
+    
+    /**
+     * Получает информацию о питании животных на 7 дней 
+     * @return Список агрегированных таблиц
+     */
     List<AnimalsFoodsMenuAggregator> readMenuforAllAnimalsOnAllWeek();
 }

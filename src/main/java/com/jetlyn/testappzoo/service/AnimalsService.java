@@ -17,13 +17,13 @@ public interface AnimalsService {
     Boolean create(Animals animal);
  
     /**
-     * Возвращает список всех имеющихся животных
+     * Получает список всех имеющихся животных
      * @return список животных
      */
     List<Animals> readAll();
  
     /**
-     * Возвращает животное по его ID
+     * Получает животное по его ID
      * @param id - ID животного
      * @return Animals - искомое животное
      */
