@@ -7,7 +7,9 @@ import javax.persistence.Column;
 import lombok.Getter;
 import lombok.Setter;
 
-
+/**
+ * Сервисная, агрегирующая из нескольких таблиц - структура
+ */
 @Getter
 @Setter
 public class AnimalsFoodsMenuAggregator implements Serializable {
